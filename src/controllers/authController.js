@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 
-// Validação do usuário
+// Validação do Usuário
 const userValidationSchema = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
