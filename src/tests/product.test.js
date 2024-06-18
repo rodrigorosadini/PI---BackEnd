@@ -5,7 +5,7 @@ let server;
 let token;
 
 beforeAll(async () => {
-  jest.setTimeout(30000); // Aumentar o timeout para 30 segundos
+  jest.setTimeout(30000); // Aumentar o timeout para 30 segundos;
   await mongoose.connect(process.env.MONGO_URI);
 
   // Iniciar o servidor antes dos testes
@@ -26,7 +26,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await mongoose.disconnect();
-  server.close(); // Fechar o servidor após os testes
+  server.close(); // Fechar o servidor após os testes.
 });
 
 describe("API de Produtos", () => {
