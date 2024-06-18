@@ -1,6 +1,6 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-const app = require("../index"); // Certifique-se de que está apontando para a instância do app
+const app = require("../index");
 let server;
 let token;
 
@@ -9,7 +9,7 @@ beforeAll(async () => {
   await mongoose.connect(process.env.MONGO_URI);
 
   // Iniciar o servidor antes dos testes
-  server = app.listen(3001); // Use uma porta diferente para os testes, por exemplo, 3001
+  server = app.listen(3001);
 
   await request(app).post("/api/auth/register").send({
     username: "usuarioteste",
