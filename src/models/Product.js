@@ -1,22 +1,20 @@
-//Product.Js
-
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
-    name: {
+    nome: {
       type: String,
       required: true,
     },
-    price: {
+    preco: {
       type: Number,
       required: true,
     },
-    description: {
+    descricao: {
       type: String,
       required: true,
     },
-    category: {
+    categoria: {
       type: String,
       required: true,
     },
@@ -24,4 +22,4 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Product", productSchema);
+module.exports = mongoose.model("Produto", productSchema);

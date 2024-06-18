@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const Usuario = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
@@ -9,19 +9,26 @@ const userValidationSchema = Joi.object({
   password: Joi.string().required(),
 });
 
-exports.register = async (req, res) => {
+exports.registrar = async (req, res) => {
   const { error } = userValidationSchema.validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const { username, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = new User({ username, password: hashedPassword });
   try {
-    await user.save();
-    res.status(201).send("User registered");
+    // Verificar se o usuário já existe
+    const usuarioExistente = await Usuario.findOne({ username });
+    if (usuarioExistente) {
+      return res.status(400).send("Nome de usuário já existe");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const usuario = new Usuario({ username, password: hashedPassword });
+
+    await usuario.save();
+    res.status(201).send("Usuário registrado");
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };
 
@@ -31,17 +38,17 @@ exports.login = async (req, res) => {
 
   const { username, password } = req.body;
   try {
-    const user = await User.findOne({ username });
-    if (!user) return res.status(400).send("Invalid credentials");
+    const usuario = await Usuario.findOne({ username });
+    if (!usuario) return res.status(400).send("Credenciais inválidas");
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).send("Invalid credentials");
+    const isMatch = await bcrypt.compare(password, usuario.password);
+    if (!isMatch) return res.status(400).send("Credenciais inválidas");
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: usuario._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
     res.status(200).send({ token });
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 };
