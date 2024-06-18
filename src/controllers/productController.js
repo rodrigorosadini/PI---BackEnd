@@ -1,7 +1,7 @@
 const Product = require("../models/Product");
 const Joi = require("joi");
 
-// Validação do Produto
+// Validação do produto
 const productValidationSchema = Joi.object({
   name: Joi.string().required(),
   price: Joi.number().required(),
