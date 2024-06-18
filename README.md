@@ -30,3 +30,106 @@ Node.js instalado (versão 14.x ou superior)
 NPM (gerenciador de pacotes do Node.js)
 Conta no MongoDB Atlas (ou MongoDB local)
 
+Como Rodar o Projeto
+Requisitos
+Node.js
+NPM
+MongoDB (MongoDB Atlas ou local)
+Passo a Passo
+Clonar o Repositório
+
+sh
+Copiar código
+git clone https://github.com/seu-usuario/pi-backend.git
+cd pi-backend
+Instalar as Dependências
+
+sh
+Copiar código
+npm install
+Rodar o Servidor
+
+sh
+Copiar código
+node src/index.js
+Você deve ver a mensagem "Servidor rodando na porta 3000" e "MongoDB conectado" no terminal.
+
+Acessar a Documentação do Swagger
+
+Abra o navegador e acesse http://localhost:3000/api-docs.
+
+Testando a API
+Registro de Usuário
+Método: POST
+URL: http://localhost:3000/api/auth/register
+Body:
+json
+Copiar código
+{
+  "username": "usuarioteste",
+  "password": "senhateste"
+}
+Login de Usuário
+Método: POST
+
+URL: http://localhost:3000/api/auth/login
+
+Body:
+
+json
+Copiar código
+{
+  "username": "usuarioteste",
+  "password": "senhateste"
+}
+Resposta Esperada: JSON com o token
+
+json
+Copiar código
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+Criar Produto
+Método: POST
+URL: http://localhost:3000/api/produtos
+Headers:
+Authorization: Bearer <seu_token>
+Body:
+json
+Copiar código
+{
+  "nome": "Produto Teste",
+  "preco": 100,
+  "descricao": "Descrição Teste",
+  "categoria": "Categoria Teste"
+}
+Obter Todos os Produtos
+Método: GET
+URL: http://localhost:3000/api/produtos
+Headers:
+Authorization: Bearer <seu_token>
+Obter Produto por ID
+Método: GET
+URL: http://localhost:3000/api/produtos/<id_do_produto>
+Headers:
+Authorization: Bearer <seu_token>
+Atualizar Produto por ID
+Método: PUT
+URL: http://localhost:3000/api/produtos/<id_do_produto>
+Headers:
+Authorization: Bearer <seu_token>
+Body:
+json
+Copiar código
+{
+  "nome": "Produto Atualizado",
+  "preco": 150,
+  "descricao": "Descrição Atualizada",
+  "categoria": "Categoria Atualizada"
+}
+Deletar Produto por ID
+Método: DELETE
+URL: http://localhost:3000/api/produtos/<id_do_produto>
+Headers:
+Authorization: Bearer <seu_token>
+
